@@ -11,6 +11,7 @@
 | `implementation-plan-architect` | opus | — | Создание детальных планов реализации: декомпозиция на задачи 1–4 часа, acceptance criteria, зависимости и параллельность |
 | `implementation-plan-reviewer` | opus | — | Review планов: полнота, гранулярность, техническая корректность. Итерирует с архитектором до approval |
 | `backend-developer` | sonnet | postgres, context7 | Backend-задачи: API, модели данных, миграции, бизнес-логика |
+| `database-engineer` | sonnet | postgres, context7 | Схемы БД, индексы, оптимизация запросов, безопасные миграции с rollback, data integrity |
 | `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API |
 | `designer` | sonnet | playwright | Premium UX/UI: дизайн-система, токены, типографика, анимации |
 | `qa-engineer` | sonnet | playwright, postgres | Тестирование: тест-планы, автотесты, bug reports, quality gate sign-off |
@@ -22,10 +23,12 @@ MCP-серверы опциональны: агент использует их,
 
 ```
 User → @implementation-plan-architect ⇄ @implementation-plan-reviewer (до ✅ APPROVED)
-     → @backend-developer / @frontend-developer / @designer (параллельно по плану)
+     → @backend-developer / @frontend-developer / @designer / @database-engineer (параллельно по плану)
      → @qa-engineer (quality gate)
      → @devops (commit / push / deploy / monitoring)
 ```
+
+`@database-engineer` подключается точечно: схема/миграция для фичи (до или параллельно с @backend-developer), медленные запросы, data-level дебаг. Production-миграции применяет @devops по его rollback-плану.
 
 Ключевое правило: **git-операции централизованы в @devops** — разработчики и QA не коммитят сами, а передают готовую работу DevOps-агенту.
 
