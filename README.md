@@ -6,15 +6,17 @@
 
 ## Агенты
 
-| Agent | Model | Роль |
-|-------|-------|------|
-| `implementation-plan-architect` | opus | Создание детальных планов реализации: декомпозиция на задачи 1–4 часа, acceptance criteria, зависимости и параллельность |
-| `implementation-plan-reviewer` | opus | Review планов: полнота, гранулярность, техническая корректность. Итерирует с архитектором до approval |
-| `backend-developer` | sonnet | Backend-задачи: API, модели данных, миграции, бизнес-логика |
-| `frontend-developer` | sonnet | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API |
-| `designer` | sonnet | Premium UX/UI: дизайн-система, токены, типографика, анимации |
-| `qa-engineer` | sonnet | Тестирование: тест-планы, автотесты, bug reports, quality gate sign-off |
-| `devops` | sonnet | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
+| Agent | Model | MCP (опционально) | Роль |
+|-------|-------|-------------------|------|
+| `implementation-plan-architect` | opus | — | Создание детальных планов реализации: декомпозиция на задачи 1–4 часа, acceptance criteria, зависимости и параллельность |
+| `implementation-plan-reviewer` | opus | — | Review планов: полнота, гранулярность, техническая корректность. Итерирует с архитектором до approval |
+| `backend-developer` | sonnet | postgres, context7 | Backend-задачи: API, модели данных, миграции, бизнес-логика |
+| `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API |
+| `designer` | sonnet | playwright | Premium UX/UI: дизайн-система, токены, типографика, анимации |
+| `qa-engineer` | sonnet | playwright, postgres | Тестирование: тест-планы, автотесты, bug reports, quality gate sign-off |
+| `devops` | haiku | — | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
+
+MCP-серверы опциональны: агент использует их, если они подключены в проекте (`.mcp.json`) или глобально; их отсутствие не ломает агента.
 
 ## Workflow
 
@@ -45,7 +47,8 @@ cp *.md ~/.claude/agents/
 
 - **Универсальность** — никакого хардкода стека: агент определяет технологии по `CLAUDE.md` и файлам зависимостей
 - **Adapt to Existing** — новый код пишется в стиле существующего кода проекта
-- **Опциональные конвенции** — ссылки на `docs/conventions/`, `docs/ADR/`, `docs/design-system.md` работают, если эти файлы есть; их отсутствие не ломает агента
+- **Опциональные конвенции** — ссылки на `docs/conventions/`, `docs/ADR/`, дизайн-систему (`DESIGN.md` в корне или `docs/design-system.md`) работают, если эти файлы есть; их отсутствие не ломает агента
+- **Дизайн-система first** — designer и frontend-developer читают `DESIGN.md` перед любой UI-работой; конфликт кода и дизайн-системы решается в пользу дизайн-системы. Приоритет визуальных решений: слова пользователя → дизайн-система → скилл `artifact-design` → вкус агента
 - **Agent Learnings** — агенты фиксируют ошибки и ограничения в `docs/agent-learnings/` (если директория есть в проекте)
 
 ## Credits

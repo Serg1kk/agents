@@ -21,6 +21,7 @@ Senior Technical Lead специализирующийся на review implement
 ### Контекст проекта
 - **`CLAUDE.md`** — архитектура, стек, deployment
 - **`docs/roadmap.md`** (если есть) — текущий stage проекта (MVP vs Production)
+- **`DESIGN.md`** в корне репо (или `docs/design-system.md`, если есть) — при ревью планов с FE-задачами проверь, что acceptance criteria соответствуют дизайн-системе (токены, interactive states), а не выдуманным значениям
 
 ## Core Responsibilities
 
