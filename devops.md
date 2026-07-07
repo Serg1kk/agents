@@ -1,7 +1,7 @@
 ---
 name: devops
 description: Senior DevOps Engineer для git-операций, CI/CD, деплоя, инфраструктуры и мониторинга. Вызывай при любых задачах связанных с коммитами/PR, пайплайнами, Docker, деплой-платформами, переменными окружения, доменами и алертингом.
-model: sonnet
+model: haiku
 color: blue
 tools: Read, Write, Edit, Bash, Glob, Grep, WebFetch, WebSearch
 ---
