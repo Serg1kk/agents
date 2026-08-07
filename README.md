@@ -12,8 +12,8 @@
 | `implementation-plan-reviewer` | opus | — | Review планов: полнота, гранулярность, техническая корректность. Итерирует с архитектором до approval |
 | `backend-developer` | sonnet | postgres, context7 | Backend-задачи: API, модели данных, миграции, бизнес-логика |
 | `database-engineer` | sonnet | postgres, context7 | Схемы БД, индексы, оптимизация запросов, безопасные миграции с rollback, data integrity |
-| `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API |
-| `designer` | sonnet | playwright | Premium UX/UI: дизайн-система, токены, типографика, анимации |
+| `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API + весь визуальный слой (токены → layout → компоненты → анимации) по дизайн-системе |
+| `designer` | opus | playwright | Проектирование интерфейсов ДО кода: брейншторм экранов, user flows, ASCII-вайрфреймы, все состояния, UX-план и хендофф. Интерактивная роль (диалог), код не пишет |
 | `qa-engineer` | sonnet | playwright, postgres | Тестирование: тест-планы, автотесты, bug reports, quality gate sign-off |
 | `devops` | haiku | — | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
 
@@ -22,11 +22,14 @@ MCP-серверы опциональны: агент использует их,
 ## Workflow
 
 ```
-User → @implementation-plan-architect ⇄ @implementation-plan-reviewer (до ✅ APPROVED)
-     → @backend-developer / @frontend-developer / @designer / @database-engineer (параллельно по плану)
+User → @designer (для UI-фич: проектирование экранов, флоу, вайрфреймы — интерактивный диалог)
+     → @implementation-plan-architect ⇄ @implementation-plan-reviewer (до ✅ APPROVED)
+     → @backend-developer / @frontend-developer / @database-engineer (параллельно по плану)
      → @qa-engineer (quality gate)
      → @devops (commit / push / deploy / monitoring)
 ```
+
+`@designer` — интерактивная роль: входить в диалог, не запускать fire-and-forget (вся ценность в вопросах, вариантах и гейтах). Механику брейншторма даёт скилл проекта (superpowers:brainstorming, grilling или другой) — в промпт агента она не зашита. Результат — UX-план, вайрфреймы и дизайн-спеки; реализует их @frontend-developer, которому передан и весь визуальный слой (токены, стили, анимации).
 
 `@database-engineer` подключается точечно: схема/миграция для фичи (до или параллельно с @backend-developer), медленные запросы, data-level дебаг. Production-миграции применяет @devops по его rollback-плану.
 
