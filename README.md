@@ -33,6 +33,7 @@
 | `marketing-specialist` | sonnet | — | GTM-кампании (цели, каналы, тайминг, бюджет), маркетинговый контент, оптимизация каналов привлечения, анализ воронки и ROI (CAC/LTV). Запуск и бюджет — за пользователем. По вызову |
 | `feature-documentation-writer` | sonnet | playwright | Документация фич после имплементации: user guides, API-доки, tutorials, how-to, release notes. Каждый шаг тестируется, примеры запускаются. По вызову |
 | `monitoring-engineer` | sonnet | context7 | Observability: метрики (RED/USE), структурные логи с correlation ID, трейсы (OpenTelemetry), дашборды, алерты с runbooks, SLO/SLI. Деплой стека — через @devops. По вызову |
+| `product-analyst` | sonnet | postgres, playwright | Продуктовая аналитика: North Star и metrics framework (decision-first), tracking plan / event schema, когорты и retention, дизайн экспериментов, аудит инструментации. По вызову |
 
 MCP-серверы опциональны: агент использует их, если они подключены в проекте (`.mcp.json`) или глобально; их отсутствие не ломает агента. Колонка MCP — рекомендации, не требования: при интеграции просканируй реально доступные MCP пользователя и раздай агентам из того, что есть (см. «Интеграция в проект» ниже).
 
@@ -52,7 +53,7 @@ MCP-серверы опциональны: агент использует их,
   → @devops (commit / push / deploy / monitoring)
 
 По вызову (не в обязательном пайплайне):
-  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer · @monitoring-engineer · @security-auditor
+  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer · @monitoring-engineer · @security-auditor · @product-analyst
   Landing-проекты: @landing-optimizer · @landing-ab-tester · @conversion-analyst
   API-проекты: @api-specialist
 ```
