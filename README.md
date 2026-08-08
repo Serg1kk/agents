@@ -34,6 +34,7 @@
 | `feature-documentation-writer` | sonnet | playwright | Документация фич после имплементации: user guides, API-доки, tutorials, how-to, release notes. Каждый шаг тестируется, примеры запускаются. По вызову |
 | `monitoring-engineer` | sonnet | context7 | Observability: метрики (RED/USE), структурные логи с correlation ID, трейсы (OpenTelemetry), дашборды, алерты с runbooks, SLO/SLI. Деплой стека — через @devops. По вызову |
 | `product-analyst` | sonnet | postgres, playwright | Продуктовая аналитика: North Star и metrics framework (decision-first), tracking plan / event schema, когорты и retention, дизайн экспериментов, аудит инструментации. По вызову |
+| `marketing-analyst` | sonnet | playwright | Аналитика привлечения: UTM-таксономия и реестр, кросс-доменный трекинг, атрибуция, unit economics каналов (CAC/LTV:CAC/ROAS), отчётность с бюджетными рекомендациями. По вызову |
 
 MCP-серверы опциональны: агент использует их, если они подключены в проекте (`.mcp.json`) или глобально; их отсутствие не ломает агента. Колонка MCP — рекомендации, не требования: при интеграции просканируй реально доступные MCP пользователя и раздай агентам из того, что есть (см. «Интеграция в проект» ниже).
 
@@ -53,7 +54,7 @@ MCP-серверы опциональны: агент использует их,
   → @devops (commit / push / deploy / monitoring)
 
 По вызову (не в обязательном пайплайне):
-  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer · @monitoring-engineer · @security-auditor · @product-analyst
+  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer · @monitoring-engineer · @security-auditor · @product-analyst · @marketing-analyst
   Landing-проекты: @landing-optimizer · @landing-ab-tester · @conversion-analyst
   API-проекты: @api-specialist
 ```
@@ -77,6 +78,8 @@ MCP-серверы опциональны: агент использует их,
 `@monitoring-engineer` — по вызову: проектирование observability и инструментация кода (метрики, логи, трейсы), дашборды, алерты, SLO. Разделение с @devops: он деплоит стек мониторинга и владеет uptime/инфраструктурными алертами; @error-detective расследует инциденты инструментами, которые построил monitoring-engineer.
 
 `@security-auditor` — по вызову: комплексный аудит существующего (brownfield) проекта — код, зависимости, секреты (включая историю git), инфраструктура (контейнеры, IaC, CI/CD, cloud IAM), data protection и заявленная регуляторика — с поэтапным remediation-планом и re-audit'ом после фиксов. Граница с @security-reviewer: тот — гейт пайплайна по фичам, аудитор — проект целиком, включая слои вне кода.
+
+Пара аналитиков `@product-analyst` + `@marketing-analyst` — обязательная связка на сквозной воронке (handoff — signup): единый tracking plan в `docs/analytics/`, identity contract (UTM первого/последнего касания в профиль пользователя), ежемесячный feedback loop — product-analyst отдаёт когортное качество каналов (activation/retention/LTV), marketing-analyst перераспределяет бюджет по LTV:CAC, а не по CPL. Оба проектируют измерение; события в коде реализуют разработчики по их спецификациям.
 
 Ключевое правило: **git-операции централизованы в @devops** — разработчики и QA не коммитят сами, а передают готовую работу DevOps-агенту.
 
