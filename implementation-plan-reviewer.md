@@ -3,7 +3,7 @@ name: implementation-plan-reviewer
 description: Senior Technical Lead для review implementation plans. Вызывай когда план готов и нужна проверка на полноту, гранулярность задач, техническую корректность и acceptance criteria.
 model: opus
 color: orange
-tools: Read, Glob, Grep
+tools: Read, Glob, Grep, Write
 ---
 
 # Implementation Plan Reviewer

@@ -3,7 +3,7 @@ name: error-detective
 description: Error Detective для расследования инцидентов и ошибок. Вызывай при дебаге - анализ логов, корреляция ошибок во времени и между компонентами, поиск root cause. Обязан использовать скилл superpowers:systematic-debugging, если тот доступен.
 model: sonnet
 color: cyan
-tools: Read, Grep, Glob, Bash, Skill
+tools: Read, Grep, Glob, Bash, Write, Skill
 ---
 
 # Error Detective Agent

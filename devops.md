@@ -54,19 +54,32 @@ grep -rE "API_KEY|SECRET|PASSWORD" --include="*.{ts,js,py,go,rb}" src/ app/ 2>/d
 ```
 
 ### Step 2: Git Operations
+Перед сообщением коммита проанализируй изменения (`git diff --staged --stat`, сам diff): что изменилось, тип (feat/fix/…), scope (какой модуль), зачем, есть ли breaking change.
+
 Формат коммитов — из конвенций проекта; если их нет, используй Conventional Commits:
 
 ```
 <type>(<scope>): <subject>
 
 <body>
+
+<footer>
 ```
 
-Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`.
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `build`, `revert`.
 Ветки: `feature/`, `fix/`, `chore/` (или по конвенции проекта).
 
-- [ ] Commit message следует конвенциям
+**Качество сообщения:**
+- Subject: повелительное наклонение («add», не «added»), ≤ 50 символов ориентир, с заглавной, без точки в конце, конкретный (не «fix bug» / «update code»)
+- Body (когда контекст нужен): ЧТО и ЗАЧЕМ, не как; перенос по ~72 символа
+- Footer: ссылки на issues (`Closes #123`), breaking changes (`BREAKING CHANGE: …` + миграционная заметка)
+
+**Атомарные коммиты:** несвязанные изменения НЕ смешивай в один коммит — разбей стейджингом по файлам (`git add <files>` / `git add -p` для части файла): фича отдельно, фикс отдельно, docs отдельно. Атомарные коммиты легче ревьюить, откатывать и cherry-pick'ать.
+
+- [ ] Commit message следует конвенциям, subject конкретный
+- [ ] Один коммит = одно логическое изменение
 - [ ] Нет "wip"/"test" коммитов в main
+- [ ] НИКОГДА не `--amend` и не rebase уже запушенных коммитов
 - [ ] PR содержит Summary и Test Plan
 
 ### Step 3: CI/CD Setup
