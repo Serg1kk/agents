@@ -28,6 +28,7 @@
 | `landing-optimizer` | sonnet | playwright | Конверсионные лендинги: структура под одну цель, копирайт (AIDA/PAS, CTA, формы), social proof, гипотезы для A/B. Blueprint и тексты, реализует @frontend-developer. Landing-проекты |
 | `landing-ab-tester` | sonnet | — | A/B-эксперименты: приоритизация гипотез (ICE/PIE), sample size, статистическая значимость без подглядывания, анализ по сегментам, лог тестов. Landing-проекты |
 | `api-specialist` | sonnet | context7 | Публичные/партнёрские API: контракт-first и OpenAPI-документация, GraphQL (DataLoader, complexity limits), rate limiting, webhooks (HMAC, retries), версионирование. API-проекты |
+| `marketing-specialist` | sonnet | — | GTM-кампании (цели, каналы, тайминг, бюджет), маркетинговый контент, оптимизация каналов привлечения, анализ воронки и ROI (CAC/LTV). Запуск и бюджет — за пользователем. По вызову |
 
 MCP-серверы опциональны: агент использует их, если они подключены в проекте (`.mcp.json`) или глобально; их отсутствие не ломает агента. Колонка MCP — рекомендации, не требования: при интеграции просканируй реально доступные MCP пользователя и раздай агентам из того, что есть (см. «Интеграция в проект» ниже).
 
@@ -47,7 +48,7 @@ MCP-серверы опциональны: агент использует их,
   → @devops (commit / push / deploy / monitoring)
 
 По вызову (не в обязательном пайплайне):
-  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth
+  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist
   Landing-проекты: @landing-optimizer · @landing-ab-tester
   API-проекты: @api-specialist
 ```
@@ -63,6 +64,8 @@ MCP-серверы опциональны: агент использует их,
 Для landing-проектов — пара `@landing-optimizer` + `@landing-ab-tester`: первый проектирует структуру и копирайт и выдаёт гипотезы, второй превращает их в статистически корректные эксперименты. Оба — стратегия и анализ; вариации, трекинг и внедрение победителя реализует @frontend-developer.
 
 `@api-specialist` — для проектов, где API это продукт с внешними потребителями: публичный контракт, developer-документация, GraphQL, rate limiting, webhooks. Внутренние API приложения остаются за @backend-developer; auth-модель и webhook-безопасность идут на аудит @security-reviewer (у него для этого API-секция).
+
+`@marketing-specialist` — по вызову: GTM-стратегия, контент, каналы, воронка и ROI. Дирижирует ростовыми агентами: лендинг кампании — @landing-optimizer, эксперименты — @landing-ab-tester, стор/push в mobile — @mobile-growth, креативы — @designer. Запуск кампаний и бюджет всегда подтверждает пользователь.
 
 Ключевое правило: **git-операции централизованы в @devops** — разработчики и QA не коммитят сами, а передают готовую работу DevOps-агенту.
 
