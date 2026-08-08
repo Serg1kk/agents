@@ -8,25 +8,40 @@
 
 | Agent | Model | MCP (опционально) | Роль |
 |-------|-------|-------------------|------|
-| `implementation-plan-architect` | opus | — | Создание детальных планов реализации: декомпозиция на задачи 1–4 часа, acceptance criteria, зависимости и параллельность |
-| `implementation-plan-reviewer` | opus | — | Review планов: полнота, гранулярность, техническая корректность. Итерирует с архитектором до approval |
+| `implementation-plan-architect` | opus | — | Создание детальных планов реализации: декомпозиция на задачи 1–4 часа, acceptance criteria, зависимости и параллельность, ADR-мышление, API-контракты |
+| `implementation-plan-reviewer` | opus | — | Review планов: полнота, гранулярность, техническая корректность + security review плана (threat modeling lite) и architecture review. Итерирует с архитектором до approval |
+| `code-reviewer` | sonnet | — | Review кода после разработчика: SOLID/DRY/KISS, соответствие плану, error handling. Итерирует с разработчиком, код не правит |
+| `security-reviewer` | opus | — | Security-аудит кода после code review: OWASP Top 10, auth/authz, скан зависимостей и секретов. Работает точечно (фича) и аудитом всего репо |
 | `backend-developer` | sonnet | postgres, context7 | Backend-задачи: API, модели данных, миграции, бизнес-логика |
 | `database-engineer` | sonnet | postgres, context7 | Схемы БД, индексы, оптимизация запросов, безопасные миграции с rollback, data integrity |
 | `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API + весь визуальный слой (токены → layout → компоненты → анимации) по дизайн-системе |
 | `designer` | opus | playwright | Проектирование интерфейсов ДО кода: брейншторм экранов, user flows, ASCII-вайрфреймы, все состояния, UX-план и хендофф. Интерактивная роль (диалог), код не пишет |
-| `qa-engineer` | sonnet | playwright, postgres | Тестирование: тест-планы, автотесты, bug reports, quality gate sign-off |
+| `qa-engineer` | sonnet | playwright, postgres | Тестирование в двух режимах — ручное или автотесты (режим задаётся в постановке): тест-планы, bug reports, quality gate sign-off |
 | `devops` | haiku | — | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
+| `researcher` | sonnet | context7 | Технические исследования: сравнение технологий, best practices, валидация гипотез. Research report с comparison-матрицей и рекомендацией |
+| `accessibility-expert` | sonnet | playwright | WCAG-аудит (axe-core, Lighthouse, Pa11y), ревью дизайна на a11y, самостоятельный фикс a11y-проблем в коде. По вызову |
+| `performance-engineer` | sonnet | playwright, postgres | Оптимизация производительности: baseline-замеры, поиск bottleneck-ов (N+1, bundle size), оптимизация, валидация против baseline. По вызову |
+| `error-detective` | sonnet | — | Расследование инцидентов: анализ логов, корреляция ошибок, root cause. Использует скилл systematic-debugging, если доступен. По вызову |
 
 MCP-серверы опциональны: агент использует их, если они подключены в проекте (`.mcp.json`) или глобально; их отсутствие не ломает агента.
 
 ## Workflow
 
 ```
-User → @designer (для UI-фич: проектирование экранов, флоу, вайрфреймы — интерактивный диалог)
-     → @implementation-plan-architect ⇄ @implementation-plan-reviewer (до ✅ APPROVED)
-     → @backend-developer / @frontend-developer / @database-engineer (параллельно по плану)
-     → @qa-engineer (quality gate)
-     → @devops (commit / push / deploy / monitoring)
+Брейншторм (режим РОЛИ, интерактивно с пользователем):
+  User + @designer (для UI-фич: проектирование экранов, флоу, вайрфреймы — до планирования)
+  → @implementation-plan-architect (+ @researcher по нужде)
+  → спека → план → @implementation-plan-reviewer (полнота + архитектура + security плана) до ✅ APPROVED
+
+Имплементация (сабагенты, автоматически):
+  @backend-developer / @frontend-developer / @database-engineer (по плану, параллельно)
+  → @code-reviewer (качество) ⇄ разработчик (до ✅)
+  → @security-reviewer (безопасность) ⇄ разработчик (до ✅)
+  → @qa-engineer (ручное или автотесты — режим задаётся в постановке)
+  → @devops (commit / push / deploy / monitoring)
+
+По вызову (не в обязательном пайплайне):
+  @accessibility-expert · @performance-engineer · @error-detective · @researcher
 ```
 
 `@designer` — интерактивная роль: входить в диалог, не запускать fire-and-forget (вся ценность в вопросах, вариантах и гейтах). Механику брейншторма даёт скилл проекта (superpowers:brainstorming, grilling или другой) — в промпт агента она не зашита. Результат — UX-план, вайрфреймы и дизайн-спеки; реализует их @frontend-developer, которому передан и весь визуальный слой (токены, стили, анимации).
