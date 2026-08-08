@@ -66,11 +66,11 @@
    | `docs/ADR/` | архитектурные решения |
    | `docs/conventions/` (`git.md`, `testing.md`, …) | конвенции |
    | `docs/roadmap.md` | roadmap |
-   | `docs/backlog/active/NNN-feature-name/` | активные фичи и планы |
+   | `docs/backlog/NNN-feature-name/` | фичи и планы (без подпапок active/archive — это X0-усложнение) |
    | `docs/research/` | результаты researcher |
    | `docs/agent-learnings/<agent>/YYYY-MM-DD_slug.md` | learnings агентов |
 
-   Никаких `docs/overview.md`, `docs/planning/vision.md`, `docs/backlog/current/…` и прочих X0-путей.
+   Никаких `docs/overview.md`, `docs/planning/vision.md`, `docs/backlog/current/…`, `docs/backlog/active/…` и прочих X0-путей. В существующих агентах ссылки на `docs/backlog/active/` заменяются на `docs/backlog/`.
 3. **Универсальность стека** — без хардкода технологий: агент определяет стек по `CLAUDE.md` и файлам зависимостей; примеры команд (npm audit / pip-audit и т.п.) даются как варианты по стеку.
 4. **Формат файла** — как у существующих: frontmatter (`name`, `description` с триггером вызова, `model`, `color`, `tools`) + тело. Язык и стиль — как в текущих агентах репо (микс RU/EN, описания на русском).
 5. **Git-операции централизованы в @devops** — новые агенты не коммитят (правило репо сохраняется).
