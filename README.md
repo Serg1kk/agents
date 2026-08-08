@@ -16,6 +16,7 @@
 | `database-engineer` | sonnet | postgres, context7 | Схемы БД, индексы, оптимизация запросов, безопасные миграции с rollback, data integrity |
 | `ai-engineer` | sonnet | context7 | AI/ML-задачи: LLM-фичи (промпты, RAG, structured outputs, fine-tuning), classical ML, evals, сервинг и мониторинг моделей |
 | `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API + весь визуальный слой (токены → layout → компоненты → анимации) по дизайн-системе |
+| `mobile-developer` | sonnet | context7 | Мобильные приложения (native iOS/Android, React Native, Flutter, KMP): платформенный UI, offline-first и sync, интеграция push и deep links, релизные сборки |
 | `designer` | opus | playwright | Проектирование интерфейсов ДО кода: брейншторм экранов, user flows, ASCII-вайрфреймы, все состояния, UX-план и хендофф. Интерактивная роль (диалог), код не пишет |
 | `qa-engineer` | sonnet | playwright, postgres | Тестирование в двух режимах — ручное или автотесты (режим задаётся в постановке): тест-планы, bug reports, quality gate sign-off |
 | `devops` | sonnet | — | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
@@ -35,7 +36,7 @@ MCP-серверы опциональны: агент использует их,
   → спека → план → @implementation-plan-reviewer (полнота + архитектура + security плана) до ✅ APPROVED
 
 Имплементация (сабагенты, автоматически):
-  @backend-developer / @frontend-developer / @database-engineer / @ai-engineer (по плану, параллельно)
+  @backend-developer / @frontend-developer / @mobile-developer / @database-engineer / @ai-engineer (по плану, параллельно)
   → @code-reviewer (качество) ⇄ разработчик (до ✅)
   → @security-reviewer (безопасность) ⇄ разработчик (до ✅)
   → @qa-engineer (ручное или автотесты — режим задаётся в постановке)
@@ -50,6 +51,8 @@ MCP-серверы опциональны: агент использует их,
 `@database-engineer` подключается точечно: схема/миграция для фичи (до или параллельно с @backend-developer), медленные запросы, data-level дебаг. Production-миграции применяет @devops по его rollback-плану.
 
 `@ai-engineer` подключается при AI/ML-задачах в плане: LLM-фичи, RAG, модели, evals. Его код проходит тот же цикл ревью (code-reviewer → security-reviewer → qa). Vector store проектирует вместе с @database-engineer, деплой моделей — через @devops.
+
+`@mobile-developer` подключается в мобильных проектах: платформенный UI, offline-first/sync, интеграция push. Его код проходит тот же цикл ревью; релизные сборки и публикация в сторы — через @devops.
 
 Ключевое правило: **git-операции централизованы в @devops** — разработчики и QA не коммитят сами, а передают готовую работу DevOps-агенту.
 
