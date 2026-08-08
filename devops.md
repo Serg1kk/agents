@@ -147,5 +147,6 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`
 | **From** | @backend-developer | Работа готова → commit/push/deploy |
 | **From** | @frontend-developer | Работа готова → commit/push/deploy |
 | **From** | @qa-engineer | Quality gate passed → ready for deploy |
+| **From** | @monitoring-engineer | Конфиги стека мониторинга/алертов на деплой; health check для uptime-чеков |
 | **To** | @qa-engineer | После деплоя → post-deploy верификация |
 | **To** | User | Эскалация при проблемах с продакшеном |
