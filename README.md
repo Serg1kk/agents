@@ -25,6 +25,7 @@
 | `performance-engineer` | sonnet | playwright, postgres | Оптимизация производительности web, backend и mobile: baseline-замеры, поиск bottleneck-ов (N+1, bundle size, cold start / fps / память / батарея), оптимизация, валидация против baseline. По вызову |
 | `error-detective` | sonnet | — | Расследование инцидентов: анализ логов, корреляция ошибок, root cause. Использует скилл systematic-debugging, если доступен. По вызову |
 | `mobile-growth` | sonnet | — | ASO (ключевые слова, листинг, отзывы, локализация) и push/engagement-стратегия (сегментация, тайминг, opt-in). Стратегия и материалы, код не пишет. По вызову |
+| `landing-optimizer` | sonnet | playwright | Конверсионные лендинги: структура под одну цель, копирайт (AIDA/PAS, CTA, формы), social proof, гипотезы для A/B. Blueprint и тексты, реализует @frontend-developer. Landing-проекты |
 
 MCP-серверы опциональны: агент использует их, если они подключены в проекте (`.mcp.json`) или глобально; их отсутствие не ломает агента. Колонка MCP — рекомендации, не требования: при интеграции просканируй реально доступные MCP пользователя и раздай агентам из того, что есть (см. «Интеграция в проект» ниже).
 
@@ -45,6 +46,7 @@ MCP-серверы опциональны: агент использует их,
 
 По вызову (не в обязательном пайплайне):
   @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth
+  Landing-проекты: @landing-optimizer · @landing-ab-tester
 ```
 
 `@designer` — интерактивная роль: входить в диалог, не запускать fire-and-forget (вся ценность в вопросах, вариантах и гейтах). Механику брейншторма даёт скилл проекта (superpowers:brainstorming, grilling или другой) — в промпт агента она не зашита. Результат — UX-план, вайрфреймы и дизайн-спеки; реализует их @frontend-developer, которому передан и весь визуальный слой (токены, стили, анимации).
