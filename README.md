@@ -22,7 +22,7 @@
 | `devops` | sonnet | — | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
 | `researcher` | sonnet | context7 | Технические исследования: сравнение технологий, best practices, валидация гипотез. Research report с comparison-матрицей и рекомендацией |
 | `accessibility-expert` | sonnet | playwright | WCAG-аудит (axe-core, Lighthouse, Pa11y), ревью дизайна на a11y, самостоятельный фикс a11y-проблем в коде. По вызову |
-| `performance-engineer` | sonnet | playwright, postgres | Оптимизация производительности: baseline-замеры, поиск bottleneck-ов (N+1, bundle size), оптимизация, валидация против baseline. По вызову |
+| `performance-engineer` | sonnet | playwright, postgres | Оптимизация производительности web, backend и mobile: baseline-замеры, поиск bottleneck-ов (N+1, bundle size, cold start / fps / память / батарея), оптимизация, валидация против baseline. По вызову |
 | `error-detective` | sonnet | — | Расследование инцидентов: анализ логов, корреляция ошибок, root cause. Использует скилл systematic-debugging, если доступен. По вызову |
 | `mobile-growth` | sonnet | — | ASO (ключевые слова, листинг, отзывы, локализация) и push/engagement-стратегия (сегментация, тайминг, opt-in). Стратегия и материалы, код не пишет. По вызову |
 
