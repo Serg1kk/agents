@@ -30,6 +30,7 @@
 | `conversion-analyst` | sonnet | playwright | CRO-диагностика: карта воронки и drop-off, анализ поведения (heatmaps, recordings, form analytics), фрикшены, CRO-аудит с бэклогом гипотез (ICE). Landing-проекты |
 | `api-specialist` | sonnet | context7 | Публичные/партнёрские API: контракт-first и OpenAPI-документация, GraphQL (DataLoader, complexity limits), rate limiting, webhooks (HMAC, retries), версионирование. API-проекты |
 | `marketing-specialist` | sonnet | — | GTM-кампании (цели, каналы, тайминг, бюджет), маркетинговый контент, оптимизация каналов привлечения, анализ воронки и ROI (CAC/LTV). Запуск и бюджет — за пользователем. По вызову |
+| `feature-documentation-writer` | sonnet | playwright | Документация фич после имплементации: user guides, API-доки, tutorials, how-to, release notes. Каждый шаг тестируется, примеры запускаются. По вызову |
 
 MCP-серверы опциональны: агент использует их, если они подключены в проекте (`.mcp.json`) или глобально; их отсутствие не ломает агента. Колонка MCP — рекомендации, не требования: при интеграции просканируй реально доступные MCP пользователя и раздай агентам из того, что есть (см. «Интеграция в проект» ниже).
 
@@ -49,7 +50,7 @@ MCP-серверы опциональны: агент использует их,
   → @devops (commit / push / deploy / monitoring)
 
 По вызову (не в обязательном пайплайне):
-  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist
+  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer
   Landing-проекты: @landing-optimizer · @landing-ab-tester · @conversion-analyst
   API-проекты: @api-specialist
 ```
@@ -67,6 +68,8 @@ MCP-серверы опциональны: агент использует их,
 `@api-specialist` — для проектов, где API это продукт с внешними потребителями: публичный контракт, developer-документация, GraphQL, rate limiting, webhooks. Внутренние API приложения остаются за @backend-developer; auth-модель и webhook-безопасность идут на аудит @security-reviewer (у него для этого API-секция).
 
 `@marketing-specialist` — по вызову: GTM-стратегия, контент, каналы, воронка и ROI. Дирижирует ростовыми агентами: лендинг кампании — @landing-optimizer, эксперименты — @landing-ab-tester, стор/push в mobile — @mobile-growth, креативы — @designer. Запуск кампаний и бюджет всегда подтверждает пользователь.
+
+`@feature-documentation-writer` — по вызову после имплементации (в идеале — после @qa-engineer): user guides, API-доки, tutorials, release notes в структуре доков проекта. Правило агента: ни один шаг не публикуется непроверенным, ни один пример — незапущенным. Публичный API-reference остаётся за @api-specialist.
 
 Ключевое правило: **git-операции централизованы в @devops** — разработчики и QA не коммитят сами, а передают готовую работу DevOps-агенту.
 
