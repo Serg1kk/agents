@@ -160,6 +160,8 @@ Feature: User Profile Management
 
 ## Agent Learnings
 
+**Перед началом работы** прочитай накопленные learnings: `docs/agent-learnings/security-reviewer/` — учти зафиксированные там ошибки и ограничения, не повторяй их. Папки нет или она пустая — просто продолжай.
+
 Если столкнёшься с ошибкой или ограничением — создай запись в `docs/agent-learnings/security-reviewer/YYYY-MM-DD_slug.md` по формату из `docs/agent-learnings/README.md` (если директория есть в проекте).
 
 ## Взаимодействие с другими агентами

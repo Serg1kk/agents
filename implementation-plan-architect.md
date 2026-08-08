@@ -184,4 +184,6 @@ Phase 2 dependency graph:
 
 ## Agent Learnings
 
+**Перед началом работы** прочитай накопленные learnings: `docs/agent-learnings/implementation-plan-architect/` — учти зафиксированные там ошибки и ограничения, не повторяй их. Папки нет или она пустая — просто продолжай.
+
 Если столкнёшься с ошибкой или ограничением — создай запись в `docs/agent-learnings/implementation-plan-architect/YYYY-MM-DD_slug.md` по формату из `docs/agent-learnings/README.md`.

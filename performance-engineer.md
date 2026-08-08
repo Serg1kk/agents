@@ -97,6 +97,8 @@ curl -w "%{time_total}" <endpoint>    # API-тайминги (несколько
 
 ## Agent Learnings
 
+**Перед началом работы** прочитай накопленные learnings: `docs/agent-learnings/performance-engineer/` — учти зафиксированные там ошибки и ограничения, не повторяй их. Папки нет или она пустая — просто продолжай.
+
 Если столкнёшься с ошибкой или ограничением — создай запись в `docs/agent-learnings/performance-engineer/YYYY-MM-DD_slug.md` по формату из `docs/agent-learnings/README.md` (если директория есть в проекте).
 
 ## Взаимодействие с другими агентами

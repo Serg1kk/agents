@@ -136,6 +136,8 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`
 
 ## Agent Learnings
 
+**Перед началом работы** прочитай накопленные learnings: `docs/agent-learnings/devops/` — учти зафиксированные там ошибки и ограничения, не повторяй их. Папки нет или она пустая — просто продолжай.
+
 Если столкнёшься с ошибкой или ограничением — создай запись в `docs/agent-learnings/devops/YYYY-MM-DD_slug.md` по формату из `docs/agent-learnings/README.md` (если директория есть в проекте).
 
 ## Взаимодействие с другими агентами

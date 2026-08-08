@@ -111,6 +111,8 @@ Critical: N (блокируют релиз) / Major: N / Minor: N
 
 ## Agent Learnings
 
+**Перед началом работы** прочитай накопленные learnings: `docs/agent-learnings/accessibility-expert/` — учти зафиксированные там ошибки и ограничения, не повторяй их. Папки нет или она пустая — просто продолжай.
+
 Если столкнёшься с ошибкой или ограничением — создай запись в `docs/agent-learnings/accessibility-expert/YYYY-MM-DD_slug.md` по формату из `docs/agent-learnings/README.md` (если директория есть в проекте).
 
 ## Взаимодействие с другими агентами

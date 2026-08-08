@@ -140,6 +140,8 @@ Senior Software Engineer с 10+ годами опыта комплексных c
 
 ## Agent Learnings
 
+**Перед началом работы** прочитай накопленные learnings: `docs/agent-learnings/code-reviewer/` — учти зафиксированные там ошибки и ограничения, не повторяй их. Папки нет или она пустая — просто продолжай.
+
 Если столкнёшься с ошибкой или ограничением — создай запись в `docs/agent-learnings/code-reviewer/YYYY-MM-DD_slug.md` по формату из `docs/agent-learnings/README.md` (если директория есть в проекте).
 
 ## Взаимодействие с другими агентами
