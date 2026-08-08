@@ -17,7 +17,7 @@
 | `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API + весь визуальный слой (токены → layout → компоненты → анимации) по дизайн-системе |
 | `designer` | opus | playwright | Проектирование интерфейсов ДО кода: брейншторм экранов, user flows, ASCII-вайрфреймы, все состояния, UX-план и хендофф. Интерактивная роль (диалог), код не пишет |
 | `qa-engineer` | sonnet | playwright, postgres | Тестирование в двух режимах — ручное или автотесты (режим задаётся в постановке): тест-планы, bug reports, quality gate sign-off |
-| `devops` | haiku | — | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
+| `devops` | sonnet | — | Git-операции, CI/CD, деплой, инфраструктура, мониторинг |
 | `researcher` | sonnet | context7 | Технические исследования: сравнение технологий, best practices, валидация гипотез. Research report с comparison-матрицей и рекомендацией |
 | `accessibility-expert` | sonnet | playwright | WCAG-аудит (axe-core, Lighthouse, Pa11y), ревью дизайна на a11y, самостоятельный фикс a11y-проблем в коде. По вызову |
 | `performance-engineer` | sonnet | playwright, postgres | Оптимизация производительности: baseline-замеры, поиск bottleneck-ов (N+1, bundle size), оптимизация, валидация против baseline. По вызову |
