@@ -12,6 +12,7 @@
 | `implementation-plan-reviewer` | opus | — | Review планов: полнота, гранулярность, техническая корректность + security review плана (threat modeling lite) и architecture review. Итерирует с архитектором до approval |
 | `code-reviewer` | sonnet | — | Review кода после разработчика: SOLID/DRY/KISS, соответствие плану, error handling. Итерирует с разработчиком, код не правит |
 | `security-reviewer` | opus | — | Security-аудит кода после code review: OWASP Top 10, auth/authz, скан зависимостей и секретов. Работает точечно (фича) и аудитом всего репо |
+| `security-auditor` | opus | — | Комплексный security-аудит существующего проекта: код (OWASP), зависимости и секреты (включая историю git), инфраструктура (контейнеры, IaC, CI/CD, cloud), compliance, remediation-roadmap. По вызову |
 | `backend-developer` | sonnet | postgres, context7 | Backend-задачи: API, модели данных, миграции, бизнес-логика |
 | `database-engineer` | sonnet | postgres, context7 | Схемы БД, индексы, оптимизация запросов, безопасные миграции с rollback, data integrity |
 | `ai-engineer` | sonnet | context7 | AI/ML-задачи: LLM-фичи (промпты, RAG, structured outputs, fine-tuning), classical ML, evals, сервинг и мониторинг моделей |
@@ -51,7 +52,7 @@ MCP-серверы опциональны: агент использует их,
   → @devops (commit / push / deploy / monitoring)
 
 По вызову (не в обязательном пайплайне):
-  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer · @monitoring-engineer
+  @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer · @monitoring-engineer · @security-auditor
   Landing-проекты: @landing-optimizer · @landing-ab-tester · @conversion-analyst
   API-проекты: @api-specialist
 ```
@@ -73,6 +74,8 @@ MCP-серверы опциональны: агент использует их,
 `@feature-documentation-writer` — по вызову после имплементации (в идеале — после @qa-engineer): user guides, API-доки, tutorials, release notes в структуре доков проекта. Правило агента: ни один шаг не публикуется непроверенным, ни один пример — незапущенным. Публичный API-reference остаётся за @api-specialist.
 
 `@monitoring-engineer` — по вызову: проектирование observability и инструментация кода (метрики, логи, трейсы), дашборды, алерты, SLO. Разделение с @devops: он деплоит стек мониторинга и владеет uptime/инфраструктурными алертами; @error-detective расследует инциденты инструментами, которые построил monitoring-engineer.
+
+`@security-auditor` — по вызову: комплексный аудит существующего (brownfield) проекта — код, зависимости, секреты (включая историю git), инфраструктура (контейнеры, IaC, CI/CD, cloud IAM), data protection и заявленная регуляторика — с поэтапным remediation-планом и re-audit'ом после фиксов. Граница с @security-reviewer: тот — гейт пайплайна по фичам, аудитор — проект целиком, включая слои вне кода.
 
 Ключевое правило: **git-операции централизованы в @devops** — разработчики и QA не коммитят сами, а передают готовую работу DevOps-агенту.
 
