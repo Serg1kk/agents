@@ -14,6 +14,7 @@
 | `security-reviewer` | opus | — | Security-аудит кода после code review: OWASP Top 10, auth/authz, скан зависимостей и секретов. Работает точечно (фича) и аудитом всего репо |
 | `backend-developer` | sonnet | postgres, context7 | Backend-задачи: API, модели данных, миграции, бизнес-логика |
 | `database-engineer` | sonnet | postgres, context7 | Схемы БД, индексы, оптимизация запросов, безопасные миграции с rollback, data integrity |
+| `ai-engineer` | sonnet | context7 | AI/ML-задачи: LLM-фичи (промпты, RAG, structured outputs, fine-tuning), classical ML, evals, сервинг и мониторинг моделей |
 | `frontend-developer` | sonnet | context7, playwright | Frontend-задачи: UI-фичи, компоненты, маршруты, интеграция с API + весь визуальный слой (токены → layout → компоненты → анимации) по дизайн-системе |
 | `designer` | opus | playwright | Проектирование интерфейсов ДО кода: брейншторм экранов, user flows, ASCII-вайрфреймы, все состояния, UX-план и хендофф. Интерактивная роль (диалог), код не пишет |
 | `qa-engineer` | sonnet | playwright, postgres | Тестирование в двух режимах — ручное или автотесты (режим задаётся в постановке): тест-планы, bug reports, quality gate sign-off |
@@ -34,7 +35,7 @@ MCP-серверы опциональны: агент использует их,
   → спека → план → @implementation-plan-reviewer (полнота + архитектура + security плана) до ✅ APPROVED
 
 Имплементация (сабагенты, автоматически):
-  @backend-developer / @frontend-developer / @database-engineer (по плану, параллельно)
+  @backend-developer / @frontend-developer / @database-engineer / @ai-engineer (по плану, параллельно)
   → @code-reviewer (качество) ⇄ разработчик (до ✅)
   → @security-reviewer (безопасность) ⇄ разработчик (до ✅)
   → @qa-engineer (ручное или автотесты — режим задаётся в постановке)
@@ -47,6 +48,8 @@ MCP-серверы опциональны: агент использует их,
 `@designer` — интерактивная роль: входить в диалог, не запускать fire-and-forget (вся ценность в вопросах, вариантах и гейтах). Механику брейншторма даёт скилл проекта (superpowers:brainstorming, grilling или другой) — в промпт агента она не зашита. Результат — UX-план, вайрфреймы и дизайн-спеки; реализует их @frontend-developer, которому передан и весь визуальный слой (токены, стили, анимации).
 
 `@database-engineer` подключается точечно: схема/миграция для фичи (до или параллельно с @backend-developer), медленные запросы, data-level дебаг. Production-миграции применяет @devops по его rollback-плану.
+
+`@ai-engineer` подключается при AI/ML-задачах в плане: LLM-фичи, RAG, модели, evals. Его код проходит тот же цикл ревью (code-reviewer → security-reviewer → qa). Vector store проектирует вместе с @database-engineer, деплой моделей — через @devops.
 
 Ключевое правило: **git-операции централизованы в @devops** — разработчики и QA не коммитят сами, а передают готовую работу DevOps-агенту.
 
