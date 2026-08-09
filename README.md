@@ -42,6 +42,12 @@ MCP-серверы опциональны: агент использует их,
 
 Для проектов, где Python — ядро (AI-кор бэкенд, data-пайплайны, чистый Python-сервис), есть отдельный набор language-специфичных агентов: `python-async-specialist`, `python-type-checker`, `python-pytest-specialist`, `python-performance-optimizer`, `python-data-analyst`. Ставятся отдельными агентами ИЛИ их практики вливаются в существующих (backend-developer, ai-engineer, qa-engineer, performance-engineer и др.) — оба режима с таблицей маппинга описаны в [`python/README.md`](python/README.md).
 
+### shadcn-агенты (папка `shadcn/`)
+
+Для проектов, где UI собирается из готовых компонентов registry-библиотек (shadcn/ui и совместимые реестры — @magicui, @originui, @aceternity и др.): `shadcn-requirements-analyzer`, `shadcn-component-researcher`, `shadcn-implementation-builder`, `shadcn-quick-helper`. Плюс два файла-ресурса в проект — `components-library-rule.md` (какая библиотека приоритетна) и `registries.json` (справочник реестров).
+
+**Ставятся только по явному запросу пользователя** — при интеграции сначала задаётся вопрос, работает ли проект с такими библиотеками (шаг 2 ниже). Ответ «нет» → папка не трогается вовсе. Оба режима подключения, граница с `frontend-developer` и таблица маппинга — в [`shadcn/README.md`](shadcn/README.md).
+
 ## Workflow
 
 ```
@@ -61,6 +67,9 @@ MCP-серверы опциональны: агент использует их,
   @accessibility-expert · @performance-engineer · @error-detective · @researcher · @mobile-growth · @marketing-specialist · @feature-documentation-writer · @monitoring-engineer · @security-auditor · @product-analyst · @marketing-analyst
   Landing-проекты: @landing-optimizer · @landing-ab-tester · @conversion-analyst
   API-проекты: @api-specialist
+  shadcn-проекты (папка shadcn/, ставятся по запросу):
+    @designer → @shadcn-requirements-analyzer → @shadcn-component-researcher → @shadcn-implementation-builder → общий цикл ревью
+    @shadcn-quick-helper — точечно, вне пайплайна
 ```
 
 `@designer` — интерактивная роль: входить в диалог, не запускать fire-and-forget (вся ценность в вопросах, вариантах и гейтах). Механику брейншторма даёт скилл проекта (superpowers:brainstorming, grilling или другой) — в промпт агента она не зашита. Результат — UX-план, вайрфреймы и дизайн-спеки; реализует их @frontend-developer, которому передан и весь визуальный слой (токены, стили, анимации).
@@ -74,6 +83,8 @@ MCP-серверы опциональны: агент использует их,
 Для landing-проектов — тройка `@landing-optimizer` + `@landing-ab-tester` + `@conversion-analyst`: optimizer проектирует структуру и копирайт, conversion-analyst диагностирует воронку (drop-off, поведение, фрикшены) и выдаёт приоритизированный бэклог гипотез, ab-tester превращает гипотезы в статистически корректные эксперименты. Все трое — стратегия и анализ; вариации, трекинг и внедрение победителя реализует @frontend-developer.
 
 `@api-specialist` — для проектов, где API это продукт с внешними потребителями: публичный контракт, developer-документация, GraphQL, rate limiting, webhooks. Внутренние API приложения остаются за @backend-developer; auth-модель и webhook-безопасность идут на аудит @security-reviewer (у него для этого API-секция).
+
+Четвёрка из `shadcn/` подключается только в проектах на registry-библиотеках готовых компонентов: `@designer` проектирует экраны как обычно, `@shadcn-requirements-analyzer` маппит их на компоненты библиотеки и строит иерархию, `@shadcn-component-researcher` достаёт из реестров реальные API, примеры и команды установки, `@shadcn-implementation-builder` собирает код. Дальше — общий цикл ревью без исключений. Граница с `@frontend-developer`: builder владеет композицией из компонентов библиотеки, формами и доступностью собранного; роутинг, стейт, интеграция с API, дизайн-токены и всё кастомное вне библиотеки остаются за frontend-developer, и спорный случай решается в его пользу.
 
 `@marketing-specialist` — по вызову: GTM-стратегия, контент, каналы, воронка и ROI. Дирижирует ростовыми агентами: лендинг кампании — @landing-optimizer, эксперименты — @landing-ab-tester, стор/push в mobile — @mobile-growth, креативы — @designer. Запуск кампаний и бюджет всегда подтверждает пользователь.
 
@@ -111,11 +122,15 @@ cp *.md ~/.claude/agents/
 2. Проверь уже установленных агентов (`~/.claude/agents/` и `.claude/agents/` проекта) — отметь пересечения по ролям, не дублируй
 3. Предложи список под стек: нет БД → `database-engineer` не нужен; нет UI → `designer` / `frontend-developer` / `accessibility-expert` не нужны; и т.д.
    - **Python-проект (AI-кор, data, Python-сервис)?** Предложи также Python-агентов из `python/` — отдельными агентами или вливанием практик в существующих; оба режима и маппинг — в `python/README.md`. В AI-кор проекте без классического веб-бэкенда основной разработчик — `ai-engineer`, `backend-developer` может быть не нужен
-4. Режим выбора — спроси, как удобнее: поставить всех / выборочно списком / итеративно по одному (с объяснением роли каждого)
-5. Финальный список законфирмь с пользователем ДО копирования
+4. **Спроси про shadcn — прямым вопросом да/нет:** «Работаете (или планируете работать) с shadcn/ui или другой registry-библиотекой готовых компонентов — @magicui, @originui, @aceternity и т.п.?»
+   - **Нет** → папку `shadcn/` не трогаем вообще: агенты не ставятся, `docs/shadcn/` не создаётся, дальше про них не упоминаем
+   - **Да** → добавь четвёрку из `shadcn/` в список кандидатов и подключай по `shadcn/README.md`: скопируй агентов, создай `docs/shadcn/` с `components-library-rule.md` и `registries.json`, **заполни правило вместе с пользователем** (какая библиотека основная — иначе агенты будут переспрашивать каждый запуск), проверь наличие shadcn MCP и `components.json` в корне проекта, проговори и зафиксируй в `CLAUDE.md` границу `shadcn-implementation-builder` ↔ `frontend-developer`
+   - Не уверен по автодетекту — всё равно спрашивай: наличие `components.json` в корне это подсказка, а не ответ за пользователя
+5. Режим выбора — спроси, как удобнее: поставить всех / выборочно списком / итеративно по одному (с объяснением роли каждого)
+6. Финальный список законфирмь с пользователем ДО копирования
 
 ### 3. Структура docs
-Агенты ссылаются на `docs/` (`ADR/`, `conventions/`, `backlog/`, `roadmap.md`, `research/`, `agent-learnings/`) — всё опционально, отсутствие ничего не ломает. Но:
+Агенты ссылаются на `docs/` (`ADR/`, `conventions/`, `backlog/`, `roadmap.md`, `research/`, `agent-learnings/`, а при подключённых shadcn-агентах — `shadcn/`) — всё опционально, отсутствие ничего не ломает. Но:
 1. Проверь, что из этого есть в проекте
 2. Если структуры нет — спроси: создать минимальную (`docs/backlog/`, `docs/ADR/`) / пользователь укажет свои существующие папки / оставить как есть
 3. Если пользователь называет свои пути — поправь пути в УСТАНОВЛЕННЫХ копиях агентов (исходный репозиторий не трогай)
